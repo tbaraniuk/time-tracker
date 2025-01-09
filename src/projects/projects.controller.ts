@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Request } from '@nestjs/common';
+import { Body, Controller, Post, Request, Get } from '@nestjs/common';
 import { ProjectsService } from './projects.service';
 import { CreateProjectDto } from './dto/createProject.dto';
 
@@ -11,5 +11,12 @@ export class ProjectsController {
     const userId = request.user.id!;
 
     return await this.projectsService.createProject(data, userId);
+  }
+
+  @Get('')
+  async getProjects(@Request() request) {
+    const userId = request.user.id!;
+
+    return this.projectsService.getUserProjects(userId);
   }
 }

@@ -20,4 +20,8 @@ export class ProjectsService {
 
     return await this.projectRepository.save(newProject);
   }
+
+  async getUserProjects(userId: number) {
+    return await this.projectRepository.find({ where: { userId: userId } });
+  }
 }

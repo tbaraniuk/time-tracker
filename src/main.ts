@@ -6,13 +6,12 @@ import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 import { AppModule } from './app.module';
-import { GoogleAuthGuard } from './auth/guards/auth.guard';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.setGlobalPrefix('/api');
-  app.useGlobalGuards(new GoogleAuthGuard());
+  // app.useGlobalGuards(new GoogleAuthGuard());
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
   app.use(
     session({
@@ -30,6 +29,12 @@ async function bootstrap() {
   const config = new DocumentBuilder()
     .setTitle('Time tracker API')
     .setDescription('API for tracking working time')
+    .addSecurity('bearer', {
+      type: 'http',
+      scheme: 'bearer',
+      bearerFormat: 'JWT',
+    })
+    .addOAuth2()
     .build();
   const documentFactory = () => SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api/docs', app, documentFactory);

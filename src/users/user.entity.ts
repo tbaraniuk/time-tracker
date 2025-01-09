@@ -9,6 +9,9 @@ export class User {
   @Column()
   username: string;
 
+  @Column()
+  password: string;
+
   @OneToMany(() => Project, (project) => project.user, { cascade: true })
   projects: Project[];
 
