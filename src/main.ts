@@ -11,7 +11,6 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.setGlobalPrefix('/api');
-  // app.useGlobalGuards(new GoogleAuthGuard());
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
   app.use(
     session({
@@ -29,12 +28,8 @@ async function bootstrap() {
   const config = new DocumentBuilder()
     .setTitle('Time tracker API')
     .setDescription('API for tracking working time')
-    .addSecurity('bearer', {
-      type: 'http',
-      scheme: 'bearer',
-      bearerFormat: 'JWT',
-    })
-    .addOAuth2()
+    .addBearerAuth()
+    // .addOAuth2()
     .build();
   const documentFactory = () => SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api/docs', app, documentFactory);

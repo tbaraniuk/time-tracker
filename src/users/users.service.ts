@@ -5,6 +5,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { User } from './user.entity';
+import { RegisterUserDto } from 'src/auth/dto/registerUser.dto';
+import { GoogleLoginUserDto } from 'src/auth/dto/googleLoginUser.dto';
 
 @Injectable()
 export class UsersService {
@@ -16,11 +18,19 @@ export class UsersService {
     return await this.userRepository.findOneBy({ email: email });
   }
 
-  async createUser(userData) {
-    const hashedPassword = await bcrypt.hash(userData.passport, 10);
+  async createUser(userData: RegisterUserDto) {
+    const hashedPassword = await bcrypt.hash(userData.password, 10);
     const newUser = await this.userRepository.create({
       ...userData,
-      passport: hashedPassword,
+      password: hashedPassword,
+    });
+
+    return await this.userRepository.save(newUser);
+  }
+
+  async createGoogleUser(userData: GoogleLoginUserDto) {
+    const newUser = await this.userRepository.create({
+      ...userData,
     });
 
     return await this.userRepository.save(newUser);

@@ -6,8 +6,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 import { User } from '../users/user.entity';
 import { UsersService } from '../users/users.service';
-import { UserDetailType } from '../utils/types';
 import { RegisterUserDto } from './dto/registerUser.dto';
+import { GoogleLoginUserDto } from './dto/googleLoginUser.dto';
 
 @Injectable()
 export class AuthService {
@@ -25,16 +25,18 @@ export class AuthService {
     const payload = { email: user.email, sub: user.id };
 
     return {
-      access_token: this.jwtService.sign(payload),
+      access_token: this.jwtService.sign(payload, {
+        secret: process.env.JWT_SECRET,
+      }),
     };
   }
 
-  async validateGoogleUser(details: UserDetailType) {
+  async validateGoogleUser(details: GoogleLoginUserDto) {
     const user = await this.usersService.findUserByEmail(details.email);
 
     if (user) return user;
 
-    const newUser = await this.usersService.createUser(details);
+    const newUser = await this.usersService.createGoogleUser(details);
 
     return await this.userRepository.save(newUser);
   }
