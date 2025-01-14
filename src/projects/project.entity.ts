@@ -1,5 +1,3 @@
-import { Track } from 'src/tracks/track.entity';
-import { User } from 'src/users/user.entity';
 import {
   Column,
   CreateDateColumn,
@@ -9,6 +7,9 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+
+import { Track } from '../tracks/track.entity';
+import { User } from '../users/user.entity';
 
 @Entity({ name: 'projects' })
 export class Project {

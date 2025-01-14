@@ -1,4 +1,3 @@
-import { Project } from 'src/projects/project.entity';
 import {
   Column,
   CreateDateColumn,
@@ -7,6 +6,8 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+
+import { Project } from '../projects/project.entity';
 
 @Entity({ name: 'tracks' })
 export class Track {

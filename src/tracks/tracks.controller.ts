@@ -1,17 +1,15 @@
-import { Body, Controller, Post, Request } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
 import { TracksService } from './tracks.service';
 import { CreateTrackDto } from './dto/createTrack.dto';
 import { ApiBearerAuth } from '@nestjs/swagger';
 
 @Controller('tracks')
+@ApiBearerAuth()
 export class TracksController {
   constructor(private readonly tracksService: TracksService) {}
 
   @Post()
-  @ApiBearerAuth()
-  async createTrack(@Body() data: CreateTrackDto, @Request() request) {
-    const userId = request.user.id;
-
+  async createTrack(@Body() data: CreateTrackDto) {
     return await this.tracksService.createTrack(data);
   }
 }

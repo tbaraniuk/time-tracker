@@ -1,7 +1,16 @@
-import { Body, Controller, Post, Request, Get } from '@nestjs/common';
-import { ProjectsService } from './projects.service';
-import { CreateProjectDto } from './dto/createProject.dto';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Request,
+  Patch,
+  Delete,
+} from '@nestjs/common';
 import { ApiBearerAuth } from '@nestjs/swagger';
+
+import { CreateProjectDto } from './dto/createProject.dto';
+import { ProjectsService } from './projects.service';
 
 @Controller('projects')
 @ApiBearerAuth()
@@ -21,4 +30,10 @@ export class ProjectsController {
 
     return this.projectsService.getUserProjects(userId);
   }
+
+  @Patch('')
+  async updateProject() {}
+
+  @Delete('')
+  async deleteProject() {}
 }

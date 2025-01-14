@@ -1,12 +1,12 @@
-import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
+import { Repository } from 'typeorm';
 
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
+import { GoogleLoginUserDto } from '../auth/dto/googleLoginUser.dto';
+import { RegisterUserDto } from '../auth/dto/registerUser.dto';
 import { User } from './user.entity';
-import { RegisterUserDto } from 'src/auth/dto/registerUser.dto';
-import { GoogleLoginUserDto } from 'src/auth/dto/googleLoginUser.dto';
 
 @Injectable()
 export class UsersService {
