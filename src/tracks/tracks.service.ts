@@ -14,4 +14,10 @@ export class TracksService {
   async createTrack(data: CreateTrackDto) {
     return await this.trackRepository.create({ ...data });
   }
+
+  async getTrack(trackId: number, userId: number) {
+    return await this.trackRepository.findOne({
+      where: { id: trackId },
+    });
+  }
 }

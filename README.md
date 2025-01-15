@@ -2,7 +2,13 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+The Time Tracker API allows users to efficiently manage their time and projects. With this API, users can:
+
+- Authenticate: Securely log in to access their personalized dashboard.
+- Manage Projects: Create, update, and organize projects.
+- Track Time: Add detailed time trackers to projects to monitor progress and productivity.
+
+The API provides insights into how much time is spent on each project, enabling users to stay organized, boost efficiency, and achieve their goals effectively. It's an ideal tool for individuals and teams looking to streamline their time management process.
 
 ## Project setup
 

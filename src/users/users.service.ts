@@ -7,6 +7,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { GoogleLoginUserDto } from '../auth/dto/googleLoginUser.dto';
 import { RegisterUserDto } from '../auth/dto/registerUser.dto';
 import { User } from './user.entity';
+import { UpdateUserDto } from './dto/updateUser.dto';
 
 @Injectable()
 export class UsersService {
@@ -26,6 +27,10 @@ export class UsersService {
     });
 
     return await this.userRepository.save(newUser);
+  }
+
+  async updateUser(userId: number, userData: UpdateUserDto) {
+    return await this.userRepository.update({ id: userId }, { ...userData });
   }
 
   async createGoogleUser(userData: GoogleLoginUserDto) {

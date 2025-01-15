@@ -1,12 +1,7 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsString } from 'class-validator';
+import { PickType } from '@nestjs/swagger';
+import { Project } from '../project.entity';
 
-export class CreateProjectDto {
-  @ApiProperty()
-  @IsString()
-  @IsNotEmpty()
-  name: string;
-
-  @ApiProperty()
-  description: string;
-}
+export class CreateProjectDto extends PickType(Project, [
+  'description',
+  'name',
+] as const) {}
