@@ -1,18 +1,21 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { APP_GUARD } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
+import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 import { Project } from './projects/project.entity';
 import { ProjectsModule } from './projects/projects.module';
+import { StatsModule } from './stats/stats.module';
+import { Tag } from './tags/tag.entity';
 import { Track } from './tracks/track.entity';
 import { TracksModule } from './tracks/tracks.module';
 import { User } from './users/user.entity';
 import { UsersModule } from './users/users.module';
-import { APP_GUARD } from '@nestjs/core';
-import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
+import { TagsModule } from './tags/tags.module';
 
 @Module({
   imports: [
@@ -24,13 +27,15 @@ import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_DATABASE,
-      entities: [User, Project, Track],
+      entities: [User, Project, Track, Tag],
       synchronize: true,
     }),
     AuthModule,
     UsersModule,
     TracksModule,
     ProjectsModule,
+    StatsModule,
+    TagsModule,
   ],
   controllers: [AppController],
   providers: [

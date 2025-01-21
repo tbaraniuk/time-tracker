@@ -10,6 +10,9 @@ The Time Tracker API allows users to efficiently manage their time and projects.
 
 The API provides insights into how much time is spent on each project, enabling users to stay organized, boost efficiency, and achieve their goals effectively. It's an ideal tool for individuals and teams looking to streamline their time management process.
 
+TODO: add tags, add pagination, add filtering projects, add project status
+TODO TODO: add stat
+
 ## Project setup
 
 ```bash

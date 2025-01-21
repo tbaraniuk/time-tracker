@@ -1,7 +1,7 @@
 import * as session from 'express-session';
 import * as passport from 'passport';
 
-import { ValidationPipe } from '@nestjs/common';
+import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
@@ -12,6 +12,7 @@ async function bootstrap() {
 
   app.setGlobalPrefix('/api');
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
+  app.useLogger(new Logger());
   app.use(
     session({
       secret: process.env.SESSION_SECRET,

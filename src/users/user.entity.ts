@@ -2,6 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Exclude, instanceToPlain } from 'class-transformer';
 import { IsEmail, IsString, MinLength } from 'class-validator';
 import { Project } from 'src/projects/project.entity';
+import { Tag } from 'src/tags/tag.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity({ name: 'users' })
@@ -38,6 +39,10 @@ export class User {
   @IsEmail({}, { message: 'Invalid email address' })
   @Column({ unique: true })
   email: string;
+
+  @ApiProperty()
+  @OneToMany(() => Tag, (tag) => tag.id, { cascade: true })
+  tag: Tag[];
 
   toJSON() {
     return instanceToPlain(this);

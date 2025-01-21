@@ -20,8 +20,10 @@ export class TracksController {
   constructor(private readonly tracksService: TracksService) {}
 
   @Post()
-  async createTrack(@Body() data: CreateTrackDto) {
-    return await this.tracksService.createTrack(data);
+  async createTrack(@Body() data: CreateTrackDto, @Request() request) {
+    const userId = request.user.userId!;
+
+    return await this.tracksService.createTrack(data, userId);
   }
 
   @Get('/:trackId')
@@ -36,8 +38,20 @@ export class TracksController {
   }
 
   @Patch('/:trackId')
-  async getUpdateTrack(@Param('trackId') trackId: number, @Request() request) {}
+  async getUpdateTrack(
+    @Param('trackId') trackId: number,
+    @Body() updatedData: CreateTrackDto,
+    @Request() request,
+  ) {
+    const userId = request.user.userId!;
+
+    return await this.tracksService.updateTrack(trackId, updatedData, userId);
+  }
 
   @Delete('/:trackId')
-  async deleteTrack(@Param('trackId') trackId: number, @Request() request) {}
+  async deleteTrack(@Param('trackId') trackId: number, @Request() request) {
+    const userId = request.user.userId!;
+
+    return await this.tracksService.deleteTrack(trackId, userId);
+  }
 }

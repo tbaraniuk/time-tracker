@@ -3,6 +3,8 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
+  JoinTable,
+  ManyToMany,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -12,6 +14,7 @@ import { Track } from '../tracks/track.entity';
 import { User } from '../users/user.entity';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNumber, IsPositive, IsString } from 'class-validator';
+import { Tag } from 'src/tags/tag.entity';
 
 @Entity({ name: 'projects' })
 export class Project {
@@ -41,6 +44,11 @@ export class Project {
   @IsPositive()
   @Column()
   userId: number;
+
+  @ApiProperty()
+  @ManyToMany(() => Tag, (tag) => tag.id)
+  @JoinTable()
+  tags: Tag[];
 
   @ApiProperty()
   @CreateDateColumn()
